@@ -19,5 +19,8 @@
     "mysql2": "^2.3.3",
     "ngrok": "^4.2.2",
     "sequelize": "^6.9.0"
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^2.0.1"
   }
 }
