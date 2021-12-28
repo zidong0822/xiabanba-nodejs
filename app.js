@@ -20,7 +20,10 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
-app.use('/shrink', createProxyMiddleware({ target: 'https://api.tinify.com', changeOrigin: true }));
+app.use('/shrink', createProxyMiddleware({ target: 'https://api.tinify.com', changeOrigin: true,onProxyReq:(proxyReq)=>{
+    proxyReq.setHeader('authorization','Basic YXBpOlRQUmg0RlpRWkhQTmpOUW5WTlhYWjNjSnh5eWJGVGgy');
+    proxyReq.setHeader('Content-type','application/json');
+}}));
 app.listen(3000);
 // [END gae_node_request_example]
 
