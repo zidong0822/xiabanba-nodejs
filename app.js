@@ -16,18 +16,14 @@
 
 // [START gae_node_request_example]
 const express = require('express');
-const https = require('https');
-const fs = require('fs');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
-const server = https.createServer({key: fs.readFileSync('key.pem'), cert: fs.readFileSync('cert.pem') }, app);
-app.get('/', (req, res) => { res.send('this is an secure server') });
 app.use('/shrink', createProxyMiddleware({ target: 'https://api.tinify.com', changeOrigin: true,onProxyReq:(proxyReq)=>{
     proxyReq.setHeader('authorization','Basic YXBpOlRQUmg0RlpRWkhQTmpOUW5WTlhYWjNjSnh5eWJGVGgy');
     proxyReq.setHeader('Content-type','application/json');
 }}));
-server.listen(3000);
+app.listen(3000);
 // [END gae_node_request_example]
 
 module.exports = app;
