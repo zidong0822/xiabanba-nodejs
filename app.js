@@ -16,12 +16,14 @@
 
 // [START gae_node_request_example]
 const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
 app.get('/', (req, res) => {
   res.status(200).send('Hello, world!').end();
 });
+app.use('/shrink', createProxyMiddleware({ target: 'https://api.tinify.com', changeOrigin: true }));
 
 // Start the server
 const PORT = process.env.PORT || 8080;
