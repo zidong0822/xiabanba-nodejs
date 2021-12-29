@@ -19,18 +19,21 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
-app.use((req, res, next) => {
-    //判断路径
-      if(req.path !== '/' && !req.path.includes('.')){
-        res.set({
-          'Access-Control-Allow-Credentials': true, //允许后端发送cookie
-          'Access-Control-Allow-Origin': req.headers.origin || '*', //任意域名都可以访问,或者基于我请求头里面的域
-          'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type', //设置请求头格式和类型
-          'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS',//允许支持的请求方式
-          'Content-Type': 'application/json; charset=utf-8'//默认与允许的文本格式json和编码格式
-        })
-      }
-      req.method === 'OPTIONS' ? res.status(204).end() : next()
+//设置跨域访问
+app.all("*", function (req, res, next) {
+  //设置允许跨域的域名，*代表允许任意域名跨域
+  res.header("Access-Control-Allow-Origin", req.headers.origin || '*');
+  // //允许的header类型
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+  // //跨域允许的请求方式 
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  // 可以带cookies
+  res.header("Access-Control-Allow-Credentials", true);
+  if (req.method == 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
 })
 app.use('/shrink', createProxyMiddleware({ target: 'https://api.tinify.com', changeOrigin: true,onProxyReq:(proxyReq)=>{
     proxyReq.setHeader('authorization','Basic YXBpOlRQUmg0RlpRWkhQTmpOUW5WTlhYWjNjSnh5eWJGVGgy');
