@@ -16,12 +16,13 @@
 
 // [START gae_node_request_example]
 const express = require('express');
-const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
-
-app.use(cors()); 
+	
+app.get('/', function (req, res) {
+  res.send('Hello World!')
+})
 app.use('/shrink', createProxyMiddleware({ target: 'https://api.tinify.com', changeOrigin: true,onProxyReq:(proxyReq)=>{
     proxyReq.setHeader('authorization','Basic YXBpOlRQUmg0RlpRWkhQTmpOUW5WTlhYWjNjSnh5eWJGVGgy');
     proxyReq.setHeader('Content-type','application/json');
