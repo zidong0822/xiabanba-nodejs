@@ -71,6 +71,9 @@ app.use((req, res, next) => {
   })
 app.use(bodyParser.raw({ type:'*/*' }));
 app.post('/', (req, res) => {
+res.header('Access-Control-Allow-Origin', '*');
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 axios({
     method: 'POST',
     url: `https://api.tinify.com/shrink`,
