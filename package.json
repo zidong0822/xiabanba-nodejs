@@ -2,12 +2,12 @@
   "name": "xiabanba-nodejs",
   "version": "1.0.0",
   "description": "Deploy express js to vercel.",
-  "main": "app.js",
+  "main": "index.js",
   "engines": {
     "node": "14.x"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
