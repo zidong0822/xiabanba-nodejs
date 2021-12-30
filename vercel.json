@@ -1,15 +1,14 @@
 {
-  "version": 2,
-  "builds": [
+    "name": "xiabanba-nodejs",
+    "version": 2,
+    "routes": [
       {
-          "src": "./index.js",
-          "use": "@vercel/node"
+        "src": "/",
+        "headers": {
+          "cache-control": "no-cache, no-store, must-revalidate",
+          "Access-Control-Allow-Origin": "*"
+        },
+        "dest": "/api"
       }
-  ],
-  "routes": [
-      {
-          "src": "/(.*)",
-          "dest": "/"
-      }
-  ]
-}
+    ]
+  }
