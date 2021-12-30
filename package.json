@@ -1,5 +1,5 @@
 {
-  "name": "xiabanba-nodejs",
+  "name": "express-vercel",
   "version": "1.0.0",
   "description": "Deploy express js to vercel.",
   "main": "index.js",
@@ -21,10 +21,6 @@
   },
   "homepage": "https://github.com/hatuanem199801/express-vercel#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "http-proxy-middleware": "^2.0.1"
-  },
-  "devDependencies": {
-    "cors": "^2.8.5"
+    "express": "^4.17.1"
   }
 }
