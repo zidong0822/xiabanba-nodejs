@@ -52,28 +52,15 @@ const app = express()
 const bodyParser = require('body-parser')
 const port = 3200
 app.use(cors());
-// app.all('*', function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header('Access-Control-Allow-Headers', "*");
-//   res.header("Access-Control-Allow-Methods", "*");
-//   res.header("Access-Control-Allow-Credentials", true);
-//   next();
-// });
-app.use((req, res, next) => {
-  res.set({
-    'Access-Control-Allow-Credentials': true, //允许后端发送cookie
-    'Access-Control-Allow-Origin': req.headers.origin || '*', //任意域名都可以访问,或者基于我请求头里面的域
-    'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type', //设置请求头格式和类型
-    'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS',//允许支持的请求方式
-    'Content-Type': 'application/json; charset=utf-8'//默认与允许的文本格式json和编码格式
-  })
-    req.method === 'OPTIONS' ? res.status(204).end() : next()
-  })
+app.all('*', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", " Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(bodyParser.raw({ type:'*/*' }));
 app.post('/', (req, res) => {
-res.header('Access-Control-Allow-Origin', '*');
-res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 axios({
     method: 'POST',
     url: `https://api.tinify.com/shrink`,
